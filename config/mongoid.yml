@@ -1,0 +1,12 @@
+development:
+  clients:
+    default:
+      database: bank_dev
+      hosts:
+        - localhost: 27017
+    test:
+      clients:
+        default:
+          database: bank_test
+          hosts:
+            - localhost:27017
