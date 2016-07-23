@@ -6,7 +6,7 @@ gem 'sinatra', require: 'sinatra/base'
 gem 'sinatra-json', require: 'sinatra/json'
 gem 'jwt'
 gem 'puma'
-gem 'mongoid', '~> 5.1.0'
+gem 'mongoid'
 gem 'rake'
 
 group :test do
