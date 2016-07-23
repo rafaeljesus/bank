@@ -15,5 +15,6 @@ module Bank
 
     use Routes::Token
     use Routes::User
+    use Routes::Account
   end
 end
