@@ -6,7 +6,7 @@ require 'bank/routes/index'
 
 module Bank
   class App < Sinatra::Application
-    configure { set :server, :puma }
+    configure {set :server, :puma}
     configure do
       disable :method_override
       disable :static
@@ -14,5 +14,6 @@ module Bank
     end
 
     use Routes::Token
+    use Routes::User
   end
 end
