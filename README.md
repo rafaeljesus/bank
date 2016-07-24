@@ -1,23 +1,21 @@
-## Rorder
+## Bank
 
 [![CircleCI](https://circleci.com/gh/rafaeljesus/rorder/tree/master.svg?style=svg)](https://circleci.com/gh/rafaeljesus/rorder/tree/master)
 
-* Rorder is a sample sinatra micro service which may receives a order hook notification event from SAP, ERP like SAP or your Gateway Payment.
-It uses [rtrace](https://github.com/rafaeljesus/rtrace) to create custom event logs through rabbitmq
 * A minimal docker alpine container
 * Automatically pushes it to dockerhub if tests pass
 
 ## Installation
 ```bash
-git clone https://github.com/rafaeljesus/rorder.git
-cd rorder
+git clone https://github.com/rafaeljesus/bank.git
+cd bank
 bundle
 ```
 
 ## Running server
 To start the serve execute:
 ```bash
-puma config.ru
+bundle exec rackup
 ```
 
 ## Docker
