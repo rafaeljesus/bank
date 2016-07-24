@@ -1,6 +1,6 @@
 ## Bank
 
-[![CircleCI](https://circleci.com/gh/rafaeljesus/rorder/tree/master.svg?style=svg)](https://circleci.com/gh/rafaeljesus/rorder/tree/master)
+[![CircleCI](https://circleci.com/gh/rafaeljesus/bank.svg?style=svg)](https://circleci.com/gh/rafaeljesus/bank)
 
 * A minimal docker alpine container
 * Automatically pushes it to dockerhub if tests pass
