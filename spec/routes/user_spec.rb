@@ -8,7 +8,7 @@ describe Bank::Routes::User do
         allow(Bank::Models::User).to receive(:create!).and_return(user)
       end
 
-      it 'has a "{id: 123456b}" json' do
+      it 'has a created id json' do
         post '/v1/users', params.to_json, provides: 'json'
         body = JSON.parse last_response.body
         expect(body['id']).to eq '123456b'

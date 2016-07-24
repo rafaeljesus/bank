@@ -5,7 +5,7 @@ module Bank
     class User < Base
       create = -> do
         begin
-          user = Bank::Models::User.create!(@payload)
+          user = Models::User.create!(@payload)
           status 201
           json = {id: user.id.to_s}.to_json
         rescue Mongoid::Errors::Validations => e

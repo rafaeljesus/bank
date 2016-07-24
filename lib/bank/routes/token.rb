@@ -5,17 +5,19 @@ module Bank
   module Routes
     class Token < Base
       create = -> do
-        unless @payload['email'].present? || @payload['password'].present?
+        valid = @payload['email'].present? && @payload['password'].present?
+
+        unless valid
           return halt 401
         end
 
-        user = Bank::Models::User.find_by(email: @payload['email'])
+        user = Models::User.find_by(email: @payload['email'])
 
         if user.nil?
           return halt 401
         end
 
-        token = Bank::Support::Token.encode(user)
+        token = Support::Token.encode(user)
         json = {token: token}.to_json
       end
 

@@ -5,28 +5,28 @@ module Bank
     class Account < Base
       before do
         payload = request.env.values_at(:user).first
-        user = Bank::Models::User.find_by(id: payload['id'])
+        user = Models::User.find_by(id: payload['id'])
         return halt 401 if user.nil?
       end
 
       create = -> do
-        account = Bank::Models::Account.open(@payload)
+        account = Models::Account.open(@payload)
         status 201
         json = account.to_json
       end
 
       deposit = -> do
-        Bank::Models::Account.deposit(params['id'], @payload['amount'])
+        Models::Account.deposit(params['id'], @payload['amount'])
         json = {deposited: true}.to_json
       end
 
       withdraw = -> do
-        Bank::Models::Account.withdraw(params['id'], @payload['amount'])
+        Models::Account.withdraw(params['id'], @payload['amount'])
         json = {withdrawn: true}.to_json
       end
 
       transfer = -> do
-        Bank::Models::Account.transfer(params['id'], @payload['to'], @payload['amount'])
+        Models::Account.transfer(params['id'], @payload['to'], @payload['amount'])
         json = {transfered: true}.to_json
       end
 
