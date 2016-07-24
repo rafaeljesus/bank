@@ -15,7 +15,7 @@ bundle
 ## Running server
 To start the serve execute:
 ```bash
-bundle exec rackup
+JWT_SECRET=foo bundle exec rackup
 ```
 
 ## Docker
