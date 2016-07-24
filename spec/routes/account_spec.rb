@@ -25,13 +25,22 @@ describe Bank::Routes::User do
     end
 
     context 'with invalid params' do
-      let(:without_name) { { password: '123456' } }
+      let(:without_name) { { user_id: '123b' } }
+      let(:without_user_id) { { name: 'Foo' } }
 
       it 'validates presence of name attribute' do
         header 'Authorization', "Bearer #{token}"
         post '/v1/accounts', without_name.to_json, provides: 'json'
         body = JSON.parse last_response.body
         expect(body['errors']).to eq "The following errors were found: Name can't be blank"
+        expect(last_response.status).to eq 442
+      end
+
+      it 'validates presence of user_id attribute' do
+        header 'Authorization', "Bearer #{token}"
+        post '/v1/accounts', without_user_id.to_json, provides: 'json'
+        body = JSON.parse last_response.body
+        expect(body['errors']).to eq "The following errors were found: User can't be blank"
         expect(last_response.status).to eq 442
       end
     end

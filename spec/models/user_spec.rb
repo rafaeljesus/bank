@@ -1,4 +1,8 @@
 describe Bank::Models::User do
+  after do
+    described_class.delete_all
+  end
+
   describe '#create' do
     context 'with valid params' do
       let(:params) { { email: 'foo@mail.com', password: '123456' } }

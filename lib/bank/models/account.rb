@@ -9,15 +9,12 @@ module Bank
 
       belongs_to :user, class_name: 'Bank::Models::User'
 
-      validates_presence_of :name, :balance
+      validates_presence_of :name, :balance, :user_id
 
       def self.open(params)
         puts "Creating a account with #{params}"
 
-        self.create!(
-          name: params['name'],
-          user: params['user_id']
-        )
+        self.create!(params)
       end
 
       def self.deposit(id, amount)
