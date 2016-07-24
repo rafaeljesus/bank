@@ -36,4 +36,58 @@ describe Bank::Routes::User do
       end
     end
   end
+
+  describe 'POST deposit' do
+    context 'with valid params' do
+      let(:id) { '123b' }
+      let(:params) { { amount: 9.99 } }
+
+      before do
+        allow(Bank::Models::Account).to receive(:deposit).with(id, params[:amount])
+      end
+
+      it 'has a deposited json attribute' do
+        header 'Authorization', "Bearer #{token}"
+        post "/v1/accounts/#{id}/deposit", params.to_json, provides: 'json'
+        body = JSON.parse last_response.body
+        expect(body['deposited']).to eq true
+      end
+    end
+  end
+
+  describe 'POST withdraw' do
+    context 'with valid params' do
+      let(:id) { '123b' }
+      let(:params) { { amount: 9.99 } }
+
+      before do
+        allow(Bank::Models::Account).to receive(:withdraw).with(id, params[:amount])
+      end
+
+      it 'has a deposited json attribute' do
+        header 'Authorization', "Bearer #{token}"
+        post "/v1/accounts/#{id}/withdraw", params.to_json, provides: 'json'
+        body = JSON.parse last_response.body
+        expect(body['withdrawn']).to eq true
+      end
+    end
+  end
+
+  describe 'POST transfer' do
+    context 'with valid params' do
+      let(:id) { '123b' }
+      let(:params) { { to: '133c', amount: '9.99' } }
+
+      before do
+        allow(Bank::Models::Account).to receive(:transfer).with(id, params[:to], params[:amount])
+      end
+
+      it 'has a deposited json attribute' do
+        header 'Authorization', "Bearer #{token}"
+        post "/v1/accounts/#{id}/transfer", params.to_json, provides: 'json'
+        body = JSON.parse last_response.body
+        expect(body['transfered']).to eq true
+      end
+    end
+  end
 end
