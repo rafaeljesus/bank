@@ -14,4 +14,4 @@ deployment:
 
 test:
   override:
-    - bundle exec rake test
+    - bundle exec rspec
