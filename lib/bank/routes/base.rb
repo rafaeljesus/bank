@@ -17,7 +17,6 @@ module Bank
         disable :static
 
         enable :use_code
-        set :show_exceptions, :after_handler
       end
     end
   end

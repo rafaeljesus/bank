@@ -11,7 +11,6 @@ module Bank
     configure do
       disable :method_override
       disable :static
-      enable  :raise_errors
     end
 
     use Support::JwtAuth
