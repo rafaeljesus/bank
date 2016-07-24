@@ -4,9 +4,9 @@ require 'rack/test'
 
 ENV['RACK_ENV'] = 'test'
 ENV['ENVIRONMENT'] = 'test'
+ENV['JWT_SECRET'] = 'foo'
 
 require_relative '../config/setup'
-
 require 'bank'
 
 Bundler.require(:default, ENV['RACK_ENV'])
