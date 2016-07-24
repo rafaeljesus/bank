@@ -3,9 +3,10 @@ require 'sinatra/json'
 
 require 'bank/version'
 require 'bank/routes/index'
+require 'bank/support/jwt_auth'
 
 module Bank
-  class App < Sinatra::Application
+  class Server < Sinatra::Application
     configure {set :server, :puma}
     configure do
       disable :method_override
@@ -13,6 +14,7 @@ module Bank
       enable  :raise_errors
     end
 
+    use Support::JwtAuth
     use Routes::Token
     use Routes::User
     use Routes::Account

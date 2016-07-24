@@ -6,40 +6,36 @@ module Bank
 
       field :name, type: String
       field :balance, type: Float, default: 0.00
-      belongs_to :user
 
-      validates_presence_of :balance, :name
+      belongs_to :user, class_name: 'Bank::Models::User'
 
-      def initialize(name, balance = 0.00)
-        @name, @balance = name, balance
-      end
+      validates_presence_of :name, :balance
 
       def self.open(params)
         self.create!(
-          name: params[:name],
-          user_id: params[:user_id],
+          name: params['name'],
+          user: params['user_id']
         )
+      end
+
+      def self.deposit(id, amount)
+        return if amount <= 0
+        account = self.find_by(id: id)
+        account.balance = (account.balance += amount).round(2)
+        account.save!
+      end
+
+      def self.withdraw(id, amount)
+        return if amount <= 0
+        account = self.find_by(id: id)
+        account.balance = (account.balance -= amount).round(2)
+        account.save!
       end
 
       def self.transfer(from, to, amount)
         return if amount <= 0
-        # fetch account by from id
-        # fetch account by to id
-        # deposit amount for to
-        # withdraw amount for from
-        # save both accounts
-      end
-
-      def deposit(amount)
-        return if amount <= 0
-        @balance += amount
-        # save account
-      end
-
-      def withdraw(amount)
-        return if amount <= 0
-        @balance -= amount
-        # save account
+        self.deposit(to, amount)
+        self.withdraw(from, amount)
       end
     end
   end

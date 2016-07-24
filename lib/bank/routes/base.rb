@@ -6,7 +6,7 @@ module Bank
       before do
         next unless request.post?
         request.body.rewind
-        @payload = JSON.parse request.body.read
+        @payload = JSON.parse(request.body.read)
       end
 
       configure do

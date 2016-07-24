@@ -1,4 +1,4 @@
 require_relative 'config/setup'
 require_relative 'lib/bank'
 
-run Bank::App
+run Bank::Server
