@@ -24,21 +24,16 @@ describe Bank::Routes::User do
       end
     end
 
-    # context 'with invalid params' do
-    #   let(:without_email) { { password: '123456' } }
-    #   let(:without_password) { { email: 'foo@mail.com' } }
-    #
-    #   it 'validates presence of email attribute' do
-    #     post '/v1/users', without_email.to_json, provides: 'json'
-    #     body = JSON.parse last_response.body
-    #     expect(body['errors']).to eq "The following errors were found: Email can't be blank"
-    #   end
-    #
-    #   it 'validates presence of password attribute' do
-    #     post '/v1/users', without_password.to_json, provides: 'json'
-    #     body = JSON.parse last_response.body
-    #     expect(body['errors']).to eq "The following errors were found: Password can't be blank"
-    #   end
-    # end
+    context 'with invalid params' do
+      let(:without_name) { { password: '123456' } }
+
+      it 'validates presence of name attribute' do
+        header 'Authorization', "Bearer #{token}"
+        post '/v1/accounts', without_name.to_json, provides: 'json'
+        body = JSON.parse last_response.body
+        expect(body['errors']).to eq "The following errors were found: Name can't be blank"
+        expect(last_response.status).to eq 442
+      end
+    end
   end
 end

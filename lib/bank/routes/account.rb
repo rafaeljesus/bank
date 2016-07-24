@@ -10,9 +10,14 @@ module Bank
       end
 
       create = -> do
-        account = Models::Account.open(@payload)
-        status 201
-        json = account.to_json
+        begin
+          account = Models::Account.open(@payload)
+          status 201
+          json = account.to_json
+        rescue Mongoid::Errors::Validations => e
+          status 442
+          json = {errors: e.summary}.to_json
+        end
       end
 
       deposit = -> do
