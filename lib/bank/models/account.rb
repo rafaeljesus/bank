@@ -13,7 +13,6 @@ module Bank
 
       def self.open(params)
         puts "Creating a account with #{params}"
-
         self.create!(params)
       end
 
