@@ -1,6 +1,9 @@
 ## Bank
 
 [![CircleCI](https://circleci.com/gh/rafaeljesus/bank.svg?style=svg)](https://circleci.com/gh/rafaeljesus/bank)
+[![Code Climate](https://codeclimate.com/github/rafaeljesus/bank/badges/gpa.svg)](https://codeclimate.com/github/rafaeljesus/bank)
+[![Test Coverage](https://codeclimate.com/github/rafaeljesus/bank/badges/coverage.svg)](https://codeclimate.com/github/rafaeljesus/bank/coverage)
+[![Issue Count](https://codeclimate.com/github/rafaeljesus/bank/badges/issue_count.svg)](https://codeclimate.com/github/rafaeljesus/bank)
 
 * A minimal docker alpine container
 * Automatically pushes it to dockerhub if tests pass

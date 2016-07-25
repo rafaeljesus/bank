@@ -21,7 +21,8 @@ module Bank
         puts "Depositing #{amount} on account #{id}"
 
         if amount <= 0
-          return puts 'Deposit failed! Amount must be greater than 0.00'
+          puts 'Deposit failed! Amount must be greater than 0.00'
+          return false
         end
 
         account = self.find_by(id: id)
@@ -33,7 +34,8 @@ module Bank
         puts "Withdrawing #{amount} on account #{id}"
 
         if amount <= 0
-          return puts 'Withdraw failed! Amount must be greater than 0.00'
+          puts 'Withdraw failed! Amount must be greater than 0.00'
+          return false
         end
 
         account = self.find_by(id: id)
@@ -45,7 +47,8 @@ module Bank
         puts "Transfering #{amount} from account #{from} to account #{to}"
 
         if amount <= 0
-          return puts 'Transfer failed! Amount must be greater than 0.00'
+          puts 'Transfer failed! Amount must be greater than 0.00'
+          return false
         end
 
         self.deposit(to, amount)

@@ -15,4 +15,5 @@ end
 group :test do
   gem 'rack-test'
   gem 'rspec'
+  gem 'codeclimate-test-reporter', require: nil
 end
