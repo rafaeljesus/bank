@@ -13,26 +13,26 @@ module Bank
         begin
           account = Models::Account.open(@payload)
           status 201
-          json = account.to_json
+          account.to_json
         rescue Mongoid::Errors::Validations => e
           status 442
-          json = {errors: e.summary}.to_json
+          {errors: e.summary}.to_json
         end
       end
 
       deposit = -> do
         Models::Account.deposit(params['id'], @payload['amount'])
-        json = {deposited: true}.to_json
+        {deposited: true}.to_json
       end
 
       withdraw = -> do
         Models::Account.withdraw(params['id'], @payload['amount'])
-        json = {withdrawn: true}.to_json
+        {withdrawn: true}.to_json
       end
 
       transfer = -> do
         Models::Account.transfer(params['id'], @payload['to'], @payload['amount'])
-        json = {transfered: true}.to_json
+        {transfered: true}.to_json
       end
 
       post '/v1/accounts', &create

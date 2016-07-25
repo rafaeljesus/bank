@@ -18,7 +18,7 @@ module Bank
         end
 
         token = Support::Token.encode(user)
-        json = {token: token}.to_json
+        {token: token}.to_json
       end
 
       post '/v1/token', &create
