@@ -28,7 +28,7 @@ curl -H 'Content-Type: application/json' -d '{"email": "test@mail.com", "passwor
 
 ### generate token
 ```bash
-curl -H 'Content-Type: application/json' -d '{"email": "test@mail.com", "password": "123456"}' -X POST 'http://localhost:9292/v1/users'
+curl -H 'Content-Type: application/json' -d '{"email": "test@mail.com", "password": "123456"}' -X POST 'http://localhost:9292/v1/token'
 ```
 
 ### open a new account
