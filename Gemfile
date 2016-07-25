@@ -5,8 +5,10 @@ ruby '2.3.1'
 gem 'sinatra', require: 'sinatra/base'
 gem 'sinatra-json', require: 'sinatra/json'
 gem 'jwt'
-gem 'mongoid'
 gem 'rake'
+gem 'bank_db',
+  git: 'git@github.com:rafaeljesus/bank_db.git',
+  branch: 'master'
 
 group :production do
   gem 'puma'
