@@ -7,6 +7,7 @@ ENV['RACK_ENV'] = 'test'
 ENV['ENVIRONMENT'] = 'test'
 ENV['JWT_SECRET'] = 'foo'
 
+require 'bank_db'
 require 'bank'
 
 CodeClimate::TestReporter.start

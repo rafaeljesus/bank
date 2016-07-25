@@ -7,7 +7,7 @@ gem 'sinatra-json', require: 'sinatra/json'
 gem 'jwt'
 gem 'rake'
 gem 'bank_db',
-  git: 'git@github.com:rafaeljesus/bank_db.git',
+  git: 'git@github.com:rafaeljesus/bank-db.git',
   branch: 'master'
 
 group :production do
