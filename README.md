@@ -2,7 +2,6 @@
 
 [![CircleCI](https://circleci.com/gh/rafaeljesus/bank.svg?style=svg)](https://circleci.com/gh/rafaeljesus/bank)
 [![Code Climate](https://codeclimate.com/github/rafaeljesus/bank/badges/gpa.svg)](https://codeclimate.com/github/rafaeljesus/bank)
-[![Test Coverage](https://codeclimate.com/github/rafaeljesus/bank/badges/coverage.svg)](https://codeclimate.com/github/rafaeljesus/bank/coverage)
 [![Issue Count](https://codeclimate.com/github/rafaeljesus/bank/badges/issue_count.svg)](https://codeclimate.com/github/rafaeljesus/bank)
 
 * A minimal docker alpine container
@@ -19,6 +18,37 @@ bundle
 To start the serve execute:
 ```bash
 JWT_SECRET=foo bundle exec rackup
+```
+
+## API
+### create user
+```bash
+curl -H 'Content-Type: application/json' -d '{"email": "test@mail.com", "password": "123456"}' -X POST 'http://localhost:9292/v1/users'
+```
+
+### generate token
+```bash
+curl -H 'Content-Type: application/json' -d '{"email": "test@mail.com", "password": "123456"}' -X POST 'http://localhost:9292/v1/users'
+```
+
+### open a new account
+```bash
+curl -H 'Content-Type: application/json' -d '{"email": "test@mail.com", "password": "123456"}' -H "Authorization: Bearer <ACCESS_TOKEN>" -X POST 'http://localhost:9292/v1/accounts'
+```
+
+### deposit into account
+```bash
+curl -H 'Content-Type: application/json' -d '{"amount": 9.99}' -H "Authorization: Bearer <ACCESS_TOKEN>" -X POST 'http://localhost:9292/v1/accounts/123456/deposit'
+```
+
+### withdraw from account
+```bash
+curl -H 'Content-Type: application/json' -d '{"amount": 9.99}' -H "Authorization: Bearer <ACCESS_TOKEN>" -X POST 'http://localhost:9292/v1/accounts/123456/withdraw'
+```
+
+### transfer from one account to another account
+```bash
+curl -H 'Content-Type: application/json' -d '{"from": "123456", "to": "654321", "amount": 9.99}' -H "Authorization: Bearer <ACCESS_TOKEN>" -X POST 'http://localhost:9292/v1/accounts/123456/transfer'
 ```
 
 ## Docker
