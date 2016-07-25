@@ -1,8 +1,6 @@
 machine:
   ruby:
     version: 2.3.1
-  environment:
-    CODECLIMATE_REPO_TOKEN: $CODECLIMATE_TOKEN
   services:
     - docker
 
