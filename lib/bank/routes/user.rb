@@ -1,16 +1,17 @@
-require 'bank/models/user'
+require 'bank/entities/user'
 
 module Bank
   module Routes
     class User < Base
       create = -> do
         begin
-          user = Models::User.create!(@payload)
+          user = Entity::User.new(@payload)
+          user.save!
           status 201
-          {id: user.id.to_s}.to_json
-        rescue Mongoid::Errors::Validations => e
+          user.to_json(only: [:id])
+        rescue ActiveRecord::RecordInvalid => e
           status 442
-          {errors: e.summary}.to_json
+          {errors: e.record.errors}.to_json
         end
       end
 

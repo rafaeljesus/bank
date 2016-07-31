@@ -1,25 +1,24 @@
 describe Bank::Routes::Token do
   describe 'POST create' do
     context 'with valid params' do
-      let(:user) { Bank::Models::User.new({id: '123456b'}) }
+      let(:user) { Bank::Entity::User.new({id: 1}) }
       let(:token) { 'token_hash' }
-      let(:params) { { email: 'foo@mail.com', password: '123456' } }
+      let(:params) { attributes_for(:user) }
 
       before do
-        allow(Bank::Models::User).to receive(:find_by).and_return(user)
+        allow(Bank::Entity::User).to receive(:find_by).and_return(user)
         allow(Bank::Support::Token).to receive(:encode).with(user).and_return(token)
       end
 
       it 'has a generated token json' do
         post '/v1/token', params.to_json, provides: 'json'
-        body = JSON.parse last_response.body
-        expect(body['token']).to eq token
+        expect(response_body_as_json['token']).to eq token
       end
     end
 
     context 'with invalid params' do
-      let(:without_email) { { password: '123456' } }
-      let(:without_password) { { email: 'foo@mail.com' } }
+      let(:without_email) { attributes_for(:user, email: nil) }
+      let(:without_password) { attributes_for(:user, password: nil) }
 
       it 'validates presence of email attribute' do
         post '/v1/token', without_email.to_json, provides: 'json'

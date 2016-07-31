@@ -1,4 +1,4 @@
-require 'bank/models/user'
+require 'bank/entities/user'
 require 'bank/support/token'
 
 module Bank
@@ -6,16 +6,10 @@ module Bank
     class Token < Base
       create = -> do
         valid = @payload['email'].present? && @payload['password'].present?
+        return halt 401 unless valid
 
-        unless valid
-          return halt 401
-        end
-
-        user = Models::User.find_by(email: @payload['email'])
-
-        if user.nil?
-          return halt 401
-        end
+        user = Entity::User.find_by(email: @payload['email'])
+        return halt 401 unless user
 
         token = Support::Token.encode(user)
         {token: token}.to_json

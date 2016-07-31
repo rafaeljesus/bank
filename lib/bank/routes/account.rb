@@ -1,37 +1,41 @@
-require 'bank/models/account'
+require 'bank/entities/account'
 
 module Bank
   module Routes
     class Account < Base
       before do
         payload = request.env.values_at(:user).first
-        user = Models::User.find_by(id: payload['id'])
-        return halt 401 if user.nil?
+        user = Entity::User.find_by(id: payload['id'])
+        return halt 401 unless user
       end
 
       create = -> do
-        begin
-          account = Models::Account.open(@payload)
-          status 201
-          account.to_json
-        rescue Mongoid::Errors::Validations => e
-          status 442
-          {errors: e.summary}.to_json
-        end
+        return status 442 unless Entity::Account.open(@payload)
+        status 201
       end
 
       deposit = -> do
-        Models::Account.deposit(params['id'], @payload['amount'])
+        account = Entity::Account.find(params['id'])
+        return status 404 unless account
+        return status 442 unless Entity::Account.deposit(account, @payload['amount'])
         {deposited: true}.to_json
       end
 
       withdraw = -> do
-        Models::Account.withdraw(params['id'], @payload['amount'])
+        account = Entity::Account.find(params['id'])
+        return status 404 unless account
+        return status 442 unless Entity::Account.withdraw(account, @payload['amount'])
         {withdrawn: true}.to_json
       end
 
       transfer = -> do
-        Models::Account.transfer(params['id'], @payload['to'], @payload['amount'])
+        account = Entity::Account.find(params['id'])
+        return status 404 unless account
+
+        recipient = Entity::Account.find(@payload['recipient_id'])
+        return status 404 unless recipient
+
+        return status 442 unless Entity::Account.transfer(account, recipient, @payload['amount'])
         {transfered: true}.to_json
       end
 
